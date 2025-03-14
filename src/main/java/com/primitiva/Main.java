@@ -5,7 +5,6 @@ import com.primitiva.Juego.JuegoPrimitiva;
 
 import java.util.Arrays;
 
-//TODO implementar try and catch para valores que no sean numeros, la comprobacion de sin son del 1 al 49 o asi ya esta hecha en Boleto. Alex: Terminado
 public class Main {
     // Array de los numeros
     public final static int[] num = new int[PrimitivaConstantes.TOTAL_NUMEROS];
@@ -25,22 +24,10 @@ public class Main {
     /*
     Este sera el boleto con el que jugara la persona
      */
+    //TODO aqui hay demasiado es muy dificil de leer , he refactorizado un trozo pero aun falta ...
     private static void crearBoleto() {
-        System.out.println(decoradorDeTexto("*** Hagamos sus numeros de la suerte ***", false, dondeColor(PrimitivaConstantes.COLORES.VERDE, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
-        // Pedir al usuario si lo hace a mano o aleatorio
-        System.out.println(decoradorDeTexto("*** Quieres introducirlos a mano? (S/N) ***", false, dondeColor(PrimitivaConstantes.COLORES.BLANCO, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
-        char numerosDeLaSuerte;
-        try {
-            numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
-
-        } catch (StringIndexOutOfBoundsException SOFBE) {
-            do {
-                System.err.println("Valor introducido no valido, vuelve a intentarlo");
-                inputNoValido = PrimitivaConstantes.sc.nextLine();
-            } while (inputNoValido.isEmpty());
-            numerosDeLaSuerte = inputNoValido.charAt(0);
-        }
-        if (numerosDeLaSuerte == 's' || numerosDeLaSuerte == 'S') {
+        char respuesta=preguntarFormaDeCrearBoleto();
+        if (respuesta == 's' || respuesta == 'S') {
             // en caso de manual ir pidiendo varias veces hasta la longitud del total de numeros
             System.out.println(decoradorDeTexto(PrimitivaConstantes.MSG_APUESTA_MANUAL, false, dondeColor(PrimitivaConstantes.COLORES.VERDE, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
             System.out.println(decoradorDeTexto(PrimitivaConstantes.LINEA_SEPARADORA, false, dondeColor(PrimitivaConstantes.COLORES.BLANCO, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
@@ -54,8 +41,8 @@ public class Main {
                             System.err.println("No se permiten colocar numeros repetidos");
                             System.err.println("Quiere poner otro numero?");
                             System.err.println("(S para poner otro numero, otro valor creara un boleto automatico)");
-                            numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
-                            if (numerosDeLaSuerte == 'S' || numerosDeLaSuerte == 's') {
+                            respuesta = PrimitivaConstantes.sc.nextLine().charAt(0);
+                            if (respuesta == 'S' || respuesta == 's') {
                                 i--;
                             } else {
                                 System.err.println("Creando boleto automaticamente...");
@@ -70,15 +57,15 @@ public class Main {
                     System.err.println("Quieres crear uno automatico o volver a intentarlo?");
                     System.err.println("(S para volver a intentarlo, otro valor indicara crear un boleto automatico)");
                     try {
-                        numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
+                        respuesta = PrimitivaConstantes.sc.nextLine().charAt(0);
                     } catch (StringIndexOutOfBoundsException SOFBE) {
                         do {
                             System.err.println("Valor introducido no valido, vuelve a intentarlo");
                             inputNoValido = PrimitivaConstantes.sc.nextLine();
                         } while (inputNoValido.isEmpty());
-                        numerosDeLaSuerte = inputNoValido.charAt(0);
+                        respuesta = inputNoValido.charAt(0);
                     }
-                    if (numerosDeLaSuerte == 'S' || numerosDeLaSuerte == 's') {
+                    if (respuesta == 'S' || respuesta == 's') {
                         i--;
                     } else {
                         System.err.println("Creando boleto automaticamente...");
@@ -102,6 +89,24 @@ public class Main {
         System.out.println(decoradorDeTexto("*** Estos son tus numeros de la suerte ***", false, dondeColor(PrimitivaConstantes.COLORES.VERDE, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
         System.out.println(decoradorDeTexto(boleto.toString(), false, dondeColor(PrimitivaConstantes.COLORES.VERDE, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
         await();
+    }
+
+    private static char preguntarFormaDeCrearBoleto() {
+        System.out.println(decoradorDeTexto("*** Hagamos sus numeros de la suerte ***", false, dondeColor(PrimitivaConstantes.COLORES.VERDE, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
+        // Pedir al usuario si lo hace a mano o aleatorio
+        System.out.println(decoradorDeTexto("*** Quieres introducirlos a mano? (S/N) ***", false, dondeColor(PrimitivaConstantes.COLORES.BLANCO, false), dondeColor(PrimitivaConstantes.COLORES.NULL, true)));
+        char respuesta;
+        try {
+            respuesta = PrimitivaConstantes.sc.nextLine().charAt(0);
+
+        } catch (StringIndexOutOfBoundsException SOFBE) {
+            do {
+                System.err.println("Valor introducido no valido, vuelve a intentarlo");
+                inputNoValido = PrimitivaConstantes.sc.nextLine();
+            } while (inputNoValido.isEmpty());
+            respuesta = inputNoValido.charAt(0);
+        }
+        return respuesta;
     }
 
     /*
@@ -137,7 +142,8 @@ public class Main {
                 case 3 -> System.out.println(juegos.juegoHastaPremioSinReintegro(boleto) + " Sorteos");
                 case 4 ->
                         System.out.println(Arrays.toString(juegos.juegoDeMuchosSorteos(boleto)) + "\n[E, 1º, 2º, 3º, 4º, 5º, R]");
-                case 5 -> System.out.println(juegos.juegoHastaEspecialResultado(boleto) + " Sorteos"+juegos.obtenerUltimoSorteo());
+                case 5 ->
+                        System.out.println(juegos.juegoHastaEspecialResultado(boleto) + " Sorteos" + juegos.obtenerUltimoSorteo());
                 default -> System.err.println("Elija una de las opciones dentro del menu");
             }
             await();

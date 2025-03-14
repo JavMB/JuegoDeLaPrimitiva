@@ -65,14 +65,14 @@ public class Boleto {
 
         for (int i = 0; i < numerosPrincipales.length; i++) {
             for (int j = i + 1; j < numerosPrincipales.length; j++) {
-                if (numerosPrincipales[i] == numerosPrincipales[j]) return false;
+                if (numerosPrincipales[i] == numerosPrincipales[j] || numerosPrincipales[i] > 49 || numerosPrincipales[i] < 1)
+                    return false;
             }
         }
         return true;
     }
 
     /**
-     *
      * @return Devuelve una copia superficial del array que guarda los 6 numeros del boleto
      */
     public int[] getNumerosPrincipales() {
@@ -80,7 +80,6 @@ public class Boleto {
     }
 
     /**
-     *
      * @return Devuelve el valor del reintegro generado aleatoriamente perteneciente al Boleto
      */
     public int getReintegro() {
