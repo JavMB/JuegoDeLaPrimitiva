@@ -137,7 +137,7 @@ public class Main {
             numIntroducido = validarNum();
             for (int i = 3; i > 0; i--) {
                 try {
-                    System.out.println("La respuesta llega en: " + i);
+                    System.out.println("Obteniendo resultados... " + i);
                     Thread.sleep(3 * 1000);
                 } catch (InterruptedException ignored) {
                 }

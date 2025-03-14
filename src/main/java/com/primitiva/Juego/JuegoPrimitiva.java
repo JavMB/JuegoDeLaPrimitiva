@@ -22,18 +22,17 @@ public class JuegoPrimitiva {
      * @return pasa unos parámetros al metodo que determina que premio se gana
      */
     public Premios juegoUnico(Boleto boleto) {
-        sorteo.generar();
-        int aciertos = calcularAciertos(boleto);
-        boolean reintegro = boleto.getReintegro() == sorteo.getReintegro();
+        int aciertos;
+        boolean reintegro;
         boolean complementario;
-        if (aciertos == 5) {
-            complementario = calcularComplementario(boleto);
-        }else {
-            complementario = false;
-        }
+        sorteo.generar();
+        aciertos = calcularAciertos(boleto);
+        reintegro = boleto.getReintegro() == sorteo.getReintegro();
+        complementario = calcularComplementario(boleto);
 
         return determinarPremio(aciertos, reintegro, complementario);
     }
+
 
     /**
      * Calcula los aciertos del boleto comparando con el resultado sorteo
@@ -59,19 +58,12 @@ public class JuegoPrimitiva {
      * @return Si el complementario encontrado es igual al del sorteo o no
      */
     private boolean calcularComplementario(Boleto boleto) {
-        int complementario = 0;
-        for (int i = 0; i < boleto.getNumerosPrincipales().length; i++) {
-            int aux = 0;
-            for (int j = 0; j < sorteo.getResultado().length; j++) {
-                if (boleto.getNumerosPrincipales()[i] == sorteo.getResultado()[j]){
-                    aux++;
-                }
-            }
-            if (aux == 0){
-                complementario = boleto.getNumerosPrincipales()[i];
+        for (int num : boleto.getNumerosPrincipales()) {
+            if (sorteo.getComplementario() == num) {
+                return true;
             }
         }
-        return complementario == sorteo.getComplementario();
+        return false;
     }
 
     /**
