@@ -137,7 +137,7 @@ public class Main {
             switch (numIntroducido) {
                 case 0 -> {
                 }
-                case 1 -> System.out.println(juegos.juegoUnico(boleto));
+                case 1 -> System.out.println(juegos.juegoUnico(boleto)+", "+juegos.obtenerUltimoSorteo());
                 case 2 -> System.out.println(juegos.juegoHastaPremio(boleto) + " Sorteos");
                 case 3 -> System.out.println(juegos.juegoHastaPremioSinReintegro(boleto) + " Sorteos");
                 case 4 ->
