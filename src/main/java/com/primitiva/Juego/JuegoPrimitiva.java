@@ -108,7 +108,7 @@ public class JuegoPrimitiva {
         boolean reintegro;
         do {
             aciertos = 0;
-            iteraciones ++;
+            iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
             reintegro = boleto.getReintegro() == sorteo.getReintegro();
@@ -126,7 +126,7 @@ public class JuegoPrimitiva {
         int aciertos;
         do {
             aciertos = 0;
-            iteraciones ++;
+            iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
         }while (aciertos < 3);
@@ -165,12 +165,20 @@ public class JuegoPrimitiva {
      * @param boleto El boleto que el usuario juega
      * @return El número de sorteos que han hecho falta
      */
-    public int juegoHastaEspecialResultado(Boleto boleto) {
+    public String juegoHastaEspecialResultado(Boleto boleto) {
         int iteraciones = 0;
-        do{
-            iteraciones ++;
-        }while(juegoUnico(boleto) != Premios.ESPECIAL);
-        return iteraciones;
+        // Capturar tiempo de inicio
+        long tiempoInicio = System.nanoTime();
+
+        do {
+            iteraciones++;
+        } while (juegoUnico(boleto) != Premios.ESPECIAL);
+
+        // Capturar tiempo de fin y calcular la diferencia
+        long tiempoFin = System.nanoTime();
+        double tiempoTotal = (tiempoFin - tiempoInicio) / 1_000_000_000.0; // Convertir a segundos
+
+        return iteraciones + "(Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
     }
 
     public ResultadoSorteo obtenerUltimoSorteo() {
