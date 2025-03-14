@@ -1,19 +1,22 @@
 package com.primitiva;
 
-import com.primitiva.Juego.Boleto;
-import com.primitiva.Juego.JuegoPrimitiva;
-
 import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
 
-//TODO implementar try and catch para valores que no sean numeros, la comprobacion de sin son del 1 al 49 o asi ya esta hecha en Boleto. Alex: Terminado
 public class Main {
+    // Random
+    private static final Random aleatorio = new Random();
     // Array de los numeros
-    public final static int[] num = new int[PrimitivaConstantes.TOTAL_NUMEROS];
+    private final static int[] num = new int[6];
+    // numero minimo de la suerte
+    private static final int numMin = 1;
+    // numero maximo de la suerte
+    private static final int numMax = 49;
     // String para que el usuario introduzca los datos
     private static int numIntroducido;
-    private static String inputNoValido;
-    // Clase boleto
-    public static Boleto boleto;
+    // Scanner para leer los datos
+    private static final Scanner leer = new Scanner(System.in);
     public static void main(String[] args) {
         // Crear boletos
         crearBoleto();
@@ -24,139 +27,57 @@ public class Main {
     Este sera el boleto con el que jugara la persona
      */
     private static void crearBoleto(){
-        System.out.println(decoradorDeTexto("*** Hagamos sus numeros de la suerte ***",false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
+        System.out.println("*** Hagamos sus numeros de la suerte ***");
         // Pedir al usuario si lo hace a mano o aleatorio
-        System.out.println(decoradorDeTexto("*** Quieres introducirlos a mano? (S/N) ***",false,dondeColor(PrimitivaConstantes.COLORES.BLANCO,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-        char numerosDeLaSuerte;
-        try {
-            numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
-        } catch (StringIndexOutOfBoundsException SOFBE) {
-            do {
-                System.err.println("Valor introducido no valido, vuelve a intentarlo");
-                inputNoValido = PrimitivaConstantes.sc.nextLine();
-            } while (inputNoValido.isEmpty());
-            numerosDeLaSuerte = inputNoValido.charAt(0);
-        }
+        System.out.println("Quieres introducirlos a mano? (S/N)");
+        char numerosDeLaSuerte = leer.nextLine().charAt(0);
         if (numerosDeLaSuerte == 's' || numerosDeLaSuerte == 'S') {
-            // en caso de manual ir pidiendo varias veces hasta la longitud del total de numeros
-            System.out.println(decoradorDeTexto(PrimitivaConstantes.MSG_APUESTA_MANUAL,false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto(PrimitivaConstantes.LINEA_SEPARADORA,false,dondeColor(PrimitivaConstantes.COLORES.BLANCO,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
+            // en caso de manual ir pidiendo varias veces hasta la longitud de
             for (int i = 0; i < num.length; i++) {
-                try {
-                    System.out.println(decoradorDeTexto(PrimitivaConstantes.MSG_INTRODUZCA_NUMERO,false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-                    // pa que si pongas un float o double no pete a la primera
-                    numIntroducido = (int) Double.parseDouble(PrimitivaConstantes.sc.nextLine());
-                    for (int j = 0; j < i; j++) {
-                        if (num[j] == numIntroducido) {
-                            System.err.println("No se permiten colocar numeros repetidos");
-                            System.err.println("Quiere poner otro numero?");
-                            System.err.println("(S para poner otro numero, otro valor creara un boleto automatico)");
-                            numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
-                            if (numerosDeLaSuerte == 'S' || numerosDeLaSuerte == 's') {
-                                i--;
-                            } else {
-                                System.err.println("Creando boleto automaticamente...");
-                                boleto = new Boleto();
-                                break;
-                            }
-                        }
-                    }
-                } catch (NumberFormatException ne) {
-
-                    System.err.println("Valor introducido no valido");
-                    System.err.println("Quieres crear uno automatico o volver a intentarlo?");
-                    System.err.println("(S para volver a intentarlo, otro valor indicara crear un boleto automatico)");
-                    try {
-                        numerosDeLaSuerte = PrimitivaConstantes.sc.nextLine().charAt(0);
-                    } catch (StringIndexOutOfBoundsException SOFBE) {
-                        do {
-                            System.err.println("Valor introducido no valido, vuelve a intentarlo");
-                            inputNoValido = PrimitivaConstantes.sc.nextLine();
-                        } while (inputNoValido.isEmpty());
-                        numerosDeLaSuerte = inputNoValido.charAt(0);
-                    }
-                    if (numerosDeLaSuerte == 'S' || numerosDeLaSuerte == 's') {
-                        i--;
-                    } else {
-                        System.err.println("Creando boleto automaticamente...");
-                        boleto = new Boleto();
-                        break;
-                    }
+                System.out.println("Indique su numero de la suerte num (entre 1 al 49): " + (i+1));
+                // pa que si pongas un float o double no pete
+                numIntroducido = (int) Double.parseDouble(leer.nextLine());
+                // verificar si los numeros estan dentro del rango
+                while (numIntroducido > numMax || numIntroducido < numMin) {
+                    System.err.println("El numero introducido no es valido: " + numIntroducido + ", vuelve a intentarlo");
                 }
                 // meter los numeros en el array en la cual es el boleto
                 num[i] = numIntroducido;
-                System.out.println(decoradorDeTexto(PrimitivaConstantes.LINEA_SEPARADORA,false,dondeColor(PrimitivaConstantes.COLORES.BLANCO,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
             }
-            boleto = new Boleto(num);
         } else {
             // por si a la persona le da flojera hacerlo a mano
-            System.out.println(decoradorDeTexto(PrimitivaConstantes.MSG_APUESTA_AUTOMATICA,false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            boleto = new Boleto();
+            for (int i = 0; i < num.length; i++) {
+                num[i] = aleatorio.nextInt(numMin,numMax+1);
+            }
         }
-
         // mostar el boleto
-        System.out.println(decoradorDeTexto(PrimitivaConstantes.LINEA_SEPARADORA,false,dondeColor(PrimitivaConstantes.COLORES.BLANCO,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-        System.out.println(decoradorDeTexto("*** Estos son tus numeros de la suerte ***",false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-        System.out.println(decoradorDeTexto(boleto.toString(),false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-        await();
+        System.out.println("*** Estos son tus numeros de la suerte ***");
+        System.out.println(Arrays.toString(num));
     }
     /*
     El menu para llamar los metodos de los juegos
-     */ //TODO mejora el atractivo como si fuera un casino, puedes usar colores. Alex: Ya termine
+     */
     private static void menu() {
         do {
-            System.out.println(decoradorDeTexto(PrimitivaConstantes.NOMBREJUEGO,false,dondeColor(PrimitivaConstantes.COLORES.VERDE,false) ,dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** Menu ***",false,dondeColor(PrimitivaConstantes.COLORES.AZUL, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** Elige ***",false,dondeColor(PrimitivaConstantes.COLORES.AZUL, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 1. Juego único ***",false,dondeColor(PrimitivaConstantes.COLORES.NEGRO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 2. Jugar hasta obtener premio ***",false,dondeColor(PrimitivaConstantes.COLORES.AMARILLO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 3. Jugar hasta obtener premio (sin reintegro) ***",false,dondeColor(PrimitivaConstantes.COLORES.MORADO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 4. Ciclo de " + PrimitivaConstantes.CANT_SORTEOS + " sorteos ***",false,dondeColor(PrimitivaConstantes.COLORES.AZULCLARO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 5. Jugar hasta obtener premio categoría especial ***",false,dondeColor(PrimitivaConstantes.COLORES.BLANCO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            System.out.println(decoradorDeTexto("*** 0. Salir ***",false,dondeColor(PrimitivaConstantes.COLORES.ROJO, false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-            try {
-                numIntroducido = (int) Double.parseDouble(PrimitivaConstantes.sc.nextLine());
-            } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                do {
-                    System.err.println("Valor introducido no valido, vuelve a intentarlo");
-                    inputNoValido = PrimitivaConstantes.sc.nextLine();
-                    if (!inputNoValido.isEmpty() && inputNoValido.charAt(0) > 5) {
-                        numIntroducido = Integer.parseInt(inputNoValido);
-                    }
-                } while (inputNoValido.isEmpty());
-            }
+            System.out.println("*** Menu ***");
+            System.out.println("*** Elige ***");
+            System.out.println("*** 1. Juego único ***");
+            System.out.println("*** 2. Jugar hasta obtener premio ***");
+            System.out.println("*** 3. Jugar hasta obtener premio (sin reintegro) ***");
+            System.out.println("*** 4. Ciclo de 10000 sorteos ***");
+            System.out.println("*** 5. Jugar hasta obtener premio categoría especial ***");
+            System.out.println("*** 0. Salir ***");
+            numIntroducido = Integer.parseInt(leer.nextLine());
+            /* Aqui van los metodos de los juegos
             switch (numIntroducido) {
-                case 0 -> {
-                }
-                case 1 -> System.out.println(juegos.juegoUnico(boleto));
-                case 2 -> System.out.println(juegos.juegoHastaPremio(boleto) + " Sorteos");
-                case 3 -> System.out.println(juegos.juegoHastaPremioSinReintegro(boleto) + " Sorteos");
-                case 4 -> System.out.println(Arrays.toString(juegos.juegoDeMuchosSorteos(boleto)) + "\n[E, 1º, 2º, 3º, 4º, 5º, R]");
-                case 5 -> System.out.println(juegos.juegoHastaEspecialResultado(boleto) + " Sorteos");
-                default -> System.err.println("Elija una de las opciones dentro del menu");
+                case 1 ->
+                case 2 ->
+                case 3 ->
+                case 4 ->
+                case 5 ->
             }
-            await();
+            */
         } while (numIntroducido != 0);
-        System.out.println(PrimitivaConstantes.DESPEDIDA);
-    }
-    private static final JuegoPrimitiva juegos = new JuegoPrimitiva();
-
-    public static String decoradorDeTexto(String texto, boolean negrita, int colorText, int background) {
-        int n = negrita ? 1 : 0;
-        return "\u001B[" + n +";" + colorText + ";" + background + "m" + texto + "\u001B[0m";
-    }
-
-    public static int dondeColor(PrimitivaConstantes.COLORES color, boolean fondo) {
-        if (fondo) {
-            return PrimitivaConstantes.colores(color, PrimitivaConstantes.TIPOCOLOR.FONDO);
-        } else {
-            return PrimitivaConstantes.colores(color, PrimitivaConstantes.TIPOCOLOR.TEXTO);
-        }
-    }
-
-    public static void await() {
-        System.out.println(PrimitivaConstantes.LINEA_SEPARADORA);
-        System.out.println(decoradorDeTexto("*** Pulse un boton para continuar ***", false,dondeColor(PrimitivaConstantes.COLORES.BLANCO,false),dondeColor(PrimitivaConstantes.COLORES.NULL,true)));
-        PrimitivaConstantes.sc.nextLine();
+        System.out.println("Adios...");
     }
 }
