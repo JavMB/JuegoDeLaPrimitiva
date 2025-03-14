@@ -3,7 +3,7 @@ package com.primitiva.GestionSorteo;
 import com.primitiva.PrimitivaConstantes;
 
 import java.util.Arrays;
-//TODO javadocs
+//TODO javadocs necesarios
 public class Bombo {
     private final int[] pool;
     private int size;
@@ -19,7 +19,7 @@ public class Bombo {
         size = pool.length;
     }
 
-    //TODO que sacar un numero haga basicamente esta operacion , y en sacarNumerosenArray x los que sean por parametro, solo llamar al metodo sacarBola/SacarUno
+    //TODO CORREGIR URGENTE , mover logica corregida de aqui a dentro de sacar un numero y usar el metodo sacar un numero que no saca repetidos dentro de este x veces.
     public void sacarNumerosEnArray(int [] array){
         for(int i = 0; i < array.length; i++){
             int indice = PrimitivaConstantes.rnd.nextInt(0,size);
@@ -30,7 +30,7 @@ public class Bombo {
         }
     }
 
-
+    //TODO CORREGIR URGENTE - en Sorteo al usar esto puedes poner un numero repetido.
     public int sacarUnNumero(){
         return pool[PrimitivaConstantes.rnd.nextInt(0,size)];
     }
@@ -48,7 +48,7 @@ public class Bombo {
 
         return array;
     }
-    //TODO quitar este metodo , no es necesario desplazar
+    //TODO quitar este metodo , no es necesario desplazar, podemos intercambiar el numero extraido con el ultimo disponible y reducir el size
     private void moveToLeft(int indice) {
         int aux = pool[indice];
 
