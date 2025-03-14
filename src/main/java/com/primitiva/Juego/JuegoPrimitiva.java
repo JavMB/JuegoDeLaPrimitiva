@@ -4,7 +4,7 @@ import com.primitiva.GestionSorteo.Bombo;
 import com.primitiva.GestionSorteo.ResultadoSorteo;
 import com.primitiva.GestionSorteo.Sorteo;
 import com.primitiva.PrimitivaConstantes;
-//TODO javadocs
+
 public class JuegoPrimitiva {
 
     private final Sorteo sorteo;
@@ -106,7 +106,7 @@ public class JuegoPrimitiva {
         int iteraciones = 0;
         int aciertos;
         boolean reintegro;
-        do { //TODO implementar sin statics
+        do {
             aciertos = 0;
             iteraciones ++;
             sorteo.generar();
