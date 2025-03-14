@@ -19,10 +19,13 @@ public class JuegoPrimitiva {
 
     // Juego de una sola vez
     public Premios juegoUnico(Boleto boleto) {
+        int aciertos;
+        boolean reintegro;
+        boolean complementario;
         sorteo.generar();
-        int aciertos = calcularAciertos(boleto);
-        boolean reintegro = boleto.getReintegro() == sorteo.getReintegro();
-        boolean complementario = calcularComplementario(boleto);
+        aciertos = calcularAciertos(boleto);
+        reintegro = boleto.getReintegro() == sorteo.getReintegro();
+        complementario = calcularComplementario(boleto);
 
         return determinarPremio(aciertos, reintegro, complementario);
     }
