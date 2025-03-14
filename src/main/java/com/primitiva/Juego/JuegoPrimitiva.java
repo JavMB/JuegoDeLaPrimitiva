@@ -4,12 +4,13 @@ import com.primitiva.GestionSorteo.Bombo;
 import com.primitiva.GestionSorteo.ResultadoSorteo;
 import com.primitiva.GestionSorteo.Sorteo;
 import com.primitiva.PrimitivaConstantes;
+
 //TODO javadocs
 public class JuegoPrimitiva {
 
     private final Sorteo sorteo;
 
-    public JuegoPrimitiva(){
+    public JuegoPrimitiva() {
         Bombo bomboPrincipal = new Bombo(PrimitivaConstantes.NUMERO_MIN, PrimitivaConstantes.NUMERO_MAX);
         Bombo bomboReintegro = new Bombo(PrimitivaConstantes.REINTEGRO_MIN, PrimitivaConstantes.REINTEGRO_MAX);
         this.sorteo = new Sorteo(bomboPrincipal, bomboReintegro);
@@ -81,11 +82,11 @@ public class JuegoPrimitiva {
         boolean reintegro;
         do { //TODO implementar sin statics
             aciertos = 0;
-            iteraciones ++;
+            iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
             reintegro = boleto.getReintegro() == sorteo.getReintegro();
-        }while (aciertos < 3 && !reintegro);
+        } while (aciertos < 3 && !reintegro);
         return iteraciones;
     }
 
@@ -95,10 +96,10 @@ public class JuegoPrimitiva {
         int aciertos;
         do {
             aciertos = 0;
-            iteraciones ++;
+            iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
-        }while (aciertos < 3);
+        } while (aciertos < 3);
         return iteraciones;
     }
 
@@ -108,7 +109,7 @@ public class JuegoPrimitiva {
         final int[] premios = new int[7];
 
         for (int i = 0; i < MUCHOS_SORTEOS; i++) {
-            switch (juegoUnico(boleto)){
+            switch (juegoUnico(boleto)) {
                 case ESPECIAL -> premios[0]++;
                 case PRIMERO -> premios[1]++;
                 case SEGUNDO -> premios[2]++;
@@ -116,7 +117,7 @@ public class JuegoPrimitiva {
                 case CUARTO -> premios[4]++;
                 case QUINTO -> premios[5]++;
                 default -> {
-                    if (boleto.getReintegro() == sorteo.getReintegro()){
+                    if (boleto.getReintegro() == sorteo.getReintegro()) {
                         premios[6]++;
                     }
                 }
@@ -125,13 +126,22 @@ public class JuegoPrimitiva {
         return premios;
     }
 
-    // Jugar hasta que salga el especial
-    public int juegoHastaEspecialResultado(Boleto boleto) {
+
+    // Jugar hasta que salga el especial con cronómetro
+    public String juegoHastaEspecialResultado(Boleto boleto) {
         int iteraciones = 0;
-        do{
-            iteraciones ++;
-        }while(juegoUnico(boleto) != Premios.ESPECIAL);
-        return iteraciones;
+        // Capturar tiempo de inicio
+        long tiempoInicio = System.nanoTime();
+
+        do {
+            iteraciones++;
+        } while (juegoUnico(boleto) != Premios.ESPECIAL);
+
+        // Capturar tiempo de fin y calcular la diferencia
+        long tiempoFin = System.nanoTime();
+        double tiempoTotal = (tiempoFin - tiempoInicio) / 1_000_000_000.0; // Convertir a segundos
+
+        return iteraciones + "(Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
     }
 
     public ResultadoSorteo obtenerUltimoSorteo() {
