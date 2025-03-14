@@ -41,18 +41,9 @@ public class JuegoPrimitiva {
     }
 
     private boolean calcularComplementario(Boleto boleto) {
-        if (calcularAciertos(boleto) == 5) {
-            for (int numero : boleto.getNumerosPrincipales()) {
-                boolean encontrado = false;
-                for (int resultado : sorteo.getResultado()) {
-                    if (numero == resultado) {
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    return numero == sorteo.getComplementario();
-                }
+        for (int num : boleto.getNumerosPrincipales()) {
+            if (sorteo.getComplementario() == num) {
+                return true;
             }
         }
         return false;
