@@ -1,6 +1,7 @@
 package com.primitiva.Juego;
 
 import com.primitiva.PrimitivaConstantes;
+
 import java.util.Arrays;
 
 public class Boleto {
@@ -17,37 +18,45 @@ public class Boleto {
     }
 
 
-    //para boleto aleatorio
+    /**
+     * Constructor que permite crear un Boleto aleatorio.
+     */
     public Boleto() {
         this.numerosPrincipales = generarBoletoAleatorio(PrimitivaConstantes.NUMERO_MAX, PrimitivaConstantes.TOTAL_NUMEROS);
         this.reintegro = PrimitivaConstantes.rnd.nextInt(PrimitivaConstantes.REINTEGRO_MAX + 1);
     }
 
     /**
-     * Genera un boleto aleatorio del rango y longitud que quieras
+     * Genera un boleto aleatorio con b números únicos en el rango de 1 a n.
      *
-     * @param n numeros disponibles para el boleto
-     * @param b cantidad de numeros del boleto
-     * @return devuelve un array de enteros con tu boleto generado
+     * @param n cantidad de números disponibles (rango: 1 a n)
+     * @param b cantidad de números en el boleto
+     * @return un array de enteros con el boleto generado
+     * @throws IllegalArgumentException si b > n o si n o b no son positivos
      */
     private int[] generarBoletoAleatorio(int n, int b) {
+        if (b > n || n <= 0 || b <= 0) {
+            throw new IllegalArgumentException("Parámetros inválidos: b debe ser <= n y ambos positivos");
+        }
+
         int[] nums = new int[n];
         int[] bol = new int[b];
         int size = nums.length;
-        int index;
+
         for (int i = 0; i < nums.length; i++) {
             nums[i] = i + 1;
         }
+
         for (int i = 0; i < b; i++) {
-            index = PrimitivaConstantes.rnd.nextInt(size);
+            int index = PrimitivaConstantes.rnd.nextInt(size);
             bol[i] = nums[index];
             nums[index] = nums[--size];
         }
+
         return bol;
     }
 
     /**
-     *
      * @param numerosPrincipales boleto a comprobar
      * @return devuelve si el boleto es valido, 6 nums, no repetidos,etc
      */
@@ -56,16 +65,23 @@ public class Boleto {
 
         for (int i = 0; i < numerosPrincipales.length; i++) {
             for (int j = i + 1; j < numerosPrincipales.length; j++) {
-                if (numerosPrincipales[i] == numerosPrincipales[j]) return false;
+                if (numerosPrincipales[i] == numerosPrincipales[j] || numerosPrincipales[i] > 49 || numerosPrincipales[i] < 1)
+                    return false;
             }
         }
         return true;
     }
 
+    /**
+     * @return Devuelve una copia superficial del array que guarda los 6 numeros del boleto
+     */
     public int[] getNumerosPrincipales() {
         return Arrays.copyOf(numerosPrincipales, numerosPrincipales.length);
     }
 
+    /**
+     * @return Devuelve el valor del reintegro generado aleatoriamente perteneciente al Boleto
+     */
     public int getReintegro() {
         return reintegro;
     }

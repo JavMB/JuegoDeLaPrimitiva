@@ -4,7 +4,7 @@ package com.primitiva.GestionSorteo;
 import com.primitiva.PrimitivaConstantes;
 
 public class Sorteo {
-    private int[] resultado;
+    private final int[] resultado;
     private int complementario;
     private int reintegro;
 
@@ -14,10 +14,14 @@ public class Sorteo {
     public Sorteo(Bombo bomboPrincipal, Bombo bomboReintegro) {
         this.bomboPrincipal = bomboPrincipal;
         this.bomboReintegro = bomboReintegro;
-        this.resultado = new int[PrimitivaConstantes.TOTAL_NUMEROS]; // Array reutilizable
+        this.resultado = new int[PrimitivaConstantes.TOTAL_NUMEROS];
     }
 
-
+    /**
+     * Genera un resultado de la primitiva
+     * reasignando los valores del array principal y los enteros
+     * permitiendonos mejorar la eficiencia de sorteos masivos.
+     */
     public void generar() {
         bomboPrincipal.reiniciarBolas(); // Reinicia el bombo para cada sorteo
         bomboPrincipal.sacarNumerosEnArray(resultado); // Genera los 6 números principales
@@ -25,15 +29,23 @@ public class Sorteo {
         reintegro = bomboReintegro.sacarUnNumero(); // Genera el reintegro
     }
 
-    //mireya para el de hasta encontrar el premio especial, solo guarda esta referencia en un static o algo y la vas actualizando en cada iteracion que hagas generar(), para evitar crear muchos objetos
+    /**
+     * @return Devuelve la referencia de la array con los resultados actuales de los 6 nums
+     */
     public int[] getResultado() {
         return resultado;
     }
 
+    /**
+     * @return Devuelve el valor del complementario obtenido en el sorteo
+     */
     public int getComplementario() {
         return complementario;
     }
 
+    /**
+     * @return Devuelve el valor del reintegro obtenido en el sorteo
+     */
     public int getReintegro() {
         return reintegro;
     }
