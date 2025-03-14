@@ -25,7 +25,9 @@ public class Bombo {
             int indice = PrimitivaConstantes.rnd.nextInt(0,size);
 
             array[i] = pool[indice];
-            moveToLeft(indice);
+
+            pool[indice] = pool[size - 1];
+            size--;
 
         }
     }

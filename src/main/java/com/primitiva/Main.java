@@ -138,7 +138,7 @@ public class Main {
             for (int i = 3; i > 0; i--) {
                 try {
                     System.out.println("Obteniendo resultados... " + i);
-                    Thread.sleep(3 * 1000);
+                    Thread.sleep(2 * 1000);
                 } catch (InterruptedException ignored) {
                 }
             }

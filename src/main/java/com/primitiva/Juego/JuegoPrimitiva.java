@@ -9,7 +9,7 @@ public class JuegoPrimitiva {
 
     private final Sorteo sorteo;
 
-    public JuegoPrimitiva(){
+    public JuegoPrimitiva() {
         Bombo bomboPrincipal = new Bombo(PrimitivaConstantes.NUMERO_MIN, PrimitivaConstantes.NUMERO_MAX);
         Bombo bomboReintegro = new Bombo(PrimitivaConstantes.REINTEGRO_MIN, PrimitivaConstantes.REINTEGRO_MAX);
         this.sorteo = new Sorteo(bomboPrincipal, bomboReintegro);
@@ -18,17 +18,23 @@ public class JuegoPrimitiva {
 
     /**
      * Primera opción del menú, se juega un sorteo de Primitiva
+     *
      * @param boleto el boleto con el que juega el usuario y que hay que comparar con el resultado del sorteo
      * @return pasa unos parámetros al metodo que determina que premio se gana
      */
     public Premios juegoUnico(Boleto boleto) {
-        int aciertos;
-        boolean reintegro;
-        boolean complementario;
         sorteo.generar();
-        aciertos = calcularAciertos(boleto);
-        reintegro = boleto.getReintegro() == sorteo.getReintegro();
-        complementario = calcularComplementario(boleto);
+        int aciertos = calcularAciertos(boleto);
+
+        boolean complementario = false;
+        if (aciertos == 5) {
+            complementario = calcularComplementario(boleto);
+        }
+
+        boolean reintegro = false;
+        if (aciertos == 6) {
+            reintegro = boleto.getReintegro() == sorteo.getReintegro();
+        }
 
         return determinarPremio(aciertos, reintegro, complementario);
     }
@@ -36,6 +42,7 @@ public class JuegoPrimitiva {
 
     /**
      * Calcula los aciertos del boleto comparando con el resultado sorteo
+     *
      * @param boleto El boleto con el que juega el usuario
      * @return La cantidad de números coincidentes entre boleto y resultado sorteo
      */
@@ -54,6 +61,7 @@ public class JuegoPrimitiva {
 
     /**
      * Se busca el número del boleto que no coincide con ningudo del sorteo
+     *
      * @param boleto El boleto en el que se busca el complementario
      * @return Si el complementario encontrado es igual al del sorteo o no
      */
@@ -68,8 +76,9 @@ public class JuegoPrimitiva {
 
     /**
      * Determinar el premio que se ha ganado
-     * @param aciertos El número de aciertos para devolver el premio adecuado
-     * @param reintegro El reintegro para saber si se consigue el premio especial
+     *
+     * @param aciertos       El número de aciertos para devolver el premio adecuado
+     * @param reintegro      El reintegro para saber si se consigue el premio especial
      * @param complementario El número complementario para saber si se consigue el segundo premio
      * @return Devuelve el premio ganado
      */
@@ -91,6 +100,7 @@ public class JuegoPrimitiva {
 
     /**
      * Hace sorteos hasta conseguir un premio, incluyendo reintegro
+     *
      * @param boleto El boleto que vamos a comparar en los sorteos
      * @return El número de sorteos que se han hecho hasta conseguir un premio o reintegro
      */
@@ -104,12 +114,13 @@ public class JuegoPrimitiva {
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
             reintegro = boleto.getReintegro() == sorteo.getReintegro();
-        }while (aciertos < 3 && !reintegro);
+        } while (aciertos < 3 && !reintegro);
         return iteraciones;
     }
 
     /**
      * Hace sorteos hasta conseguir un premio, sin incluir reintegro
+     *
      * @param boleto El boleto que vamos a comparar en los sorteos
      * @return El número de sorteos que se han hecho hasta conseguir un premio
      */
@@ -121,12 +132,13 @@ public class JuegoPrimitiva {
             iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
-        }while (aciertos < 3);
+        } while (aciertos < 3);
         return iteraciones;
     }
 
     /**
      * Juega una cantidad de veces determinadas en PrimitivaConstantes
+     *
      * @param boleto El boleto con el que se juega
      * @return Un array en el que se ordenan los premios de mayor a menor de izq a decha
      */
@@ -135,7 +147,7 @@ public class JuegoPrimitiva {
         final int[] premios = new int[7];
 
         for (int i = 0; i < MUCHOS_SORTEOS; i++) {
-            switch (juegoUnico(boleto)){
+            switch (juegoUnico(boleto)) {
                 case ESPECIAL -> premios[0]++;
                 case PRIMERO -> premios[1]++;
                 case SEGUNDO -> premios[2]++;
@@ -143,7 +155,7 @@ public class JuegoPrimitiva {
                 case CUARTO -> premios[4]++;
                 case QUINTO -> premios[5]++;
                 default -> {
-                    if (boleto.getReintegro() == sorteo.getReintegro()){
+                    if (boleto.getReintegro() == sorteo.getReintegro()) {
                         premios[6]++;
                     }
                 }
@@ -154,6 +166,7 @@ public class JuegoPrimitiva {
 
     /**
      * Juega sorteos hasta que haya 6 aciertos y el reintegro = Premio Especial
+     *
      * @param boleto El boleto que el usuario juega
      * @return El número de sorteos que han hecho falta
      */
