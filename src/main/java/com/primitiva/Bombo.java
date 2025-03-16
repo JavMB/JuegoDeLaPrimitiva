@@ -38,7 +38,10 @@ public class Bombo {
      * @return numero aleatorio
      */
     public int sacarUnNumero(){
-        return pool[PrimitivaConstantes.rnd.nextInt(0,size)];
+        int indice = PrimitivaConstantes.rnd.nextInt(0,size);
+        extraerBola(indice);
+        return pool[indice];
+
     }
 
 
