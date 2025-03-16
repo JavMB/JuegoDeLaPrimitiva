@@ -1,5 +1,6 @@
 package com.primitiva;
 
+import javax.print.DocFlavor;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,8 +17,7 @@ public class PrimitivaConstantes {
   public static final int REINTEGRO_MIN = 0;
   public static final int REINTEGRO_MAX = 9;
 
-  public static final int COMPLEMENTARIO_MIN = 1;
-  public static final int COMPLEMENTARIO_MAX = 49;
+  public static final int COUNTDOWN = 3;
 
   public static final int CANT_SORTEOS = 10000;
 
@@ -26,6 +26,13 @@ public class PrimitivaConstantes {
   public static final String MSG_APUESTA_AUTOMATICA = "*** Selección automática de números ***";
   public static final String MSG_INTRODUZCA_NUMERO =
       "*** Introduzca un número entre " + NUMERO_MIN + " y " + NUMERO_MAX + ": ***";
+  public static final String ERROR = """
+           _____ ____  ____   ___  ____ \s
+          | ____|  _ \\|  _ \\ / _ \\|  _ \\\s
+          |  _| | |_) | |_) | | | | |_) |
+          | |___|  _ <|  _ <| |_| |  _ <\s
+          |_____|_| \\_\\_| \\_\\\\___/|_| \\_\\""";
+  public static final String MSG_ERROR = ERROR + "\n" + "*** Valor introducido no valido, vuelve a intentarlo ***";
 
   // Caracteres para presentación
   public static final String LINEA_SEPARADORA = "----------------------------------------";
@@ -117,6 +124,31 @@ public class PrimitivaConstantes {
           | |_) | |  | | | | | | | | |_| |\\ V / (_| |         \s
           | .__/|_|  |_|_| |_| |_|_|\\__|_| \\_/ \\__,_|         \s
           |_|                                                 \s""";
+  public static final String BOLETO = """
+           ____   ___  _     _____ _____ ___ \s
+          | __ ) / _ \\| |   | ____|_   _/ _ \\\s
+          |  _ \\| | | | |   |  _|   | || | | |
+          | |_) | |_| | |___| |___  | || |_| |
+          |____/ \\___/|_____|_____| |_| \\___/\s""";
+  public static final String CREARBOLETOSTRING = """
+            ____ ____  _____    _    ____ \s
+           / ___|  _ \\| ____|  / \\  |  _ \\\s
+          | |   | |_) |  _|   / _ \\ | |_) |
+          | |___|  _ <| |___ / ___ \\|  _ <\s
+           \\____|_| \\_\\_____/_/   \\_\\_| \\_\\""";
+  public static final String TUBOLETOTOSTRING = """
+           _____ _   _\s
+          |_   _| | | |
+            | | | | | |
+            | | | |_| |
+            |_|  \\___/\s""";
+  public static final String RESULTADOS = """
+           ____  _____ ____  _   _ _   _____  _    ____   ___  ____ \s
+          |  _ \\| ____/ ___|| | | | | |_   _|/ \\  |  _ \\ / _ \\/ ___|\s
+          | |_) |  _| \\___ \\| | | | |   | | / _ \\ | | | | | | \\___ \\\s
+          |  _ <| |___ ___) | |_| | |___| |/ ___ \\| |_| | |_| |___) |
+          |_| \\_\\_____|____/ \\___/|_____|_/_/   \\_\\____/ \\___/|____/\s""" + "\n";
+
   public static final String DESPEDIDA = """
               _    ____ ___ ___  ____      \s
              / \\  |  _ \\_ _/ _ \\/ ___|     \s
