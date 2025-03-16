@@ -18,23 +18,36 @@ public class Bombo {
     }
 
 
+    /**
+     * Metodo para Rellenar un array con numeros aleatorios
+     * @param array el array en cuaestion
+     */
     public void sacarNumerosEnArray(int [] array){
         for(int i = 0; i < array.length; i++){
             int indice = PrimitivaConstantes.rnd.nextInt(0,size);
 
             array[i] = pool[indice];
-            moveToLeft(indice);
+            extraerBola(indice);
 
         }
     }
 
 
+    /**
+     * metodo para sacar un numero aleatorio de la pool
+     * @return numero aleatorio
+     */
     public int sacarUnNumero(){
         return pool[PrimitivaConstantes.rnd.nextInt(0,size)];
     }
 
 
-
+    /**
+     * metodo para generar la pool de bolas
+     * @param min numero minimo
+     * @param max numero maximo
+     * @return pool de bolas
+     */
     private int[] generarPool(int min, int max){
         int[] array = new int[(max + 1) - min];
         int contador = 0;
@@ -47,15 +60,20 @@ public class Bombo {
         return array;
     }
 
-    private void moveToLeft(int indice) {
-        int aux = pool[indice];
 
-        for (int i = indice; i < pool.length - 1; i++) {
-            pool[i] = pool[i + 1];
+    /**
+     * Ajustar el array y el size para que no salgan los numeros previamente sacados
+     * @param indice numero seleccionado
+     */
+    private void extraerBola(int indice) {
+        if(indice != (size-1)){
+            int aux = pool[indice];
+            pool[indice] = pool[size-1];
+            pool[size-1] = aux;
+
         }
-        size--;
 
-        pool[pool.length-1] = aux;
+        size--;
     }
 
 
