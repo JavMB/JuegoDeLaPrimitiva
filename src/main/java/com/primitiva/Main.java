@@ -8,12 +8,15 @@ import java.util.Arrays;
 public class Main {
     // Array de los numeros
     public static int[] num = new int[PrimitivaConstantes.TOTAL_NUMEROS];
-    // String para que el usuario introduzca los datos
+    // int para que el usuario introduzca los datos
     private static int numIntroducido;
+    // String para que el usuario introduzca los datos
     private static String input;
+    // char para que el usuario introduzca los datos
     private static char respuesta;
     // Clase boleto
     public static Boleto boleto;
+
     public static void main(String[] args) {
         // Crear boletos
         crearBoleto();
@@ -200,10 +203,13 @@ public class Main {
         return text + "\n" + PrimitivaConstantes.BOLETO;
     }
 
+    /**
+     * Para realizar un contador
+     */
     private static String countdown() {
         for (int i = PrimitivaConstantes.COUNTDOWN; i > 0; i--) {
             try {
-                System.out.println(decoradorDeTexto("Obteniendo resultados en... " + i, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[i], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                System.out.println(decoradorDeTexto("Mostrando resultados en... " + i, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[i], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
                 Thread.sleep(1000);
             } catch (InterruptedException ignored) {
             }
@@ -211,7 +217,9 @@ public class Main {
         return "";
     }
 
-    // texto del menu
+    /**
+     * El texto del menu
+     */
     private static void menuText() {
         System.out.println(decoradorDeTexto(PrimitivaConstantes.NOMBREJUEGO, false, dondeVaElColor(PrimitivaConstantes.COLORES.VERDE, false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
         System.out.println(decoradorDeTexto("*** Menu ***", false, dondeVaElColor(PrimitivaConstantes.COLORES.AZUL, false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
@@ -223,6 +231,12 @@ public class Main {
         System.out.println(decoradorDeTexto("*** 5. Jugar hasta obtener premio categoría especial ***", false, dondeVaElColor(PrimitivaConstantes.COLORES.BLANCO, false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
         System.out.println(decoradorDeTexto("*** 0. Salir ***", false, dondeVaElColor(PrimitivaConstantes.COLORES.ROJO, false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
     }
+
+    /**
+     * Las opciones del menu y lo que realiza
+     *
+     * @param numIntroducido el numero introducido para llamar a los metodos
+     */
     private static void menuOptions(int numIntroducido) {
         switch (numIntroducido) {
             case 1 ->
