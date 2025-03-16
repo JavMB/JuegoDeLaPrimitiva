@@ -183,7 +183,7 @@ public class JuegoPrimitiva {
         long tiempoFin = System.nanoTime();
         double tiempoTotal = (tiempoFin - tiempoInicio) / 1_000_000_000.0; // Convertir a segundos
 
-        return iteraciones + "(Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
+        return iteraciones + " Sorteos (Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
     }
 
     public ResultadoSorteo obtenerUltimoSorteo() {
