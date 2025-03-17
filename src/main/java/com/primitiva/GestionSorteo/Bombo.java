@@ -1,6 +1,7 @@
 package com.primitiva.GestionSorteo;
 
 import com.primitiva.PrimitivaConstantes;
+
 import java.util.Arrays;
 
 /**
@@ -24,20 +25,18 @@ public class Bombo {
 
     /**
      * Extrae una serie de números aleatorios de la pool sin repetirlos.
-     * 
+     *
      * @param array Array donde se almacenarán los números extraídos.
      */
     public void sacarNumerosEnArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
-            int indice = PrimitivaConstantes.rnd.nextInt(0, size);
-            array[i] = pool[indice];
-            extraerBola(indice); // Manteniendo la lógica correcta de extracción
+            array[i] = sacarUnNumero();
         }
     }
 
     /**
      * Extrae un número aleatorio de la pool sin repetirlo.
-     * 
+     *
      * @return Número extraído.
      */
     public int sacarUnNumero() {
@@ -49,7 +48,7 @@ public class Bombo {
 
     /**
      * Genera un array con números consecutivos entre un mínimo y un máximo.
-     * 
+     *
      * @param min Número mínimo.
      * @param max Número máximo.
      * @return Array de números consecutivos.
@@ -68,15 +67,13 @@ public class Bombo {
 
     /**
      * Ajusta el array y el tamaño para evitar la repetición de números extraídos.
-     * 
+     *
      * @param indice Índice del número a extraer.
      */
     private void extraerBola(int indice) {
-        if (indice != (size - 1)) {
-            int aux = pool[indice];
-            pool[indice] = pool[size - 1];
-            pool[size - 1] = aux;
-        }
+        int aux = pool[indice];
+        pool[indice] = pool[size-1];
+        pool[size-1] = aux;
         size--;
     }
 

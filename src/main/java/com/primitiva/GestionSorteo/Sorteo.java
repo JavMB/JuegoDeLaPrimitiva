@@ -24,8 +24,9 @@ public class Sorteo {
      */
     public void generar() {
         bomboPrincipal.reiniciarBolas(); // Reinicia el bombo para cada sorteo
+        bomboReintegro.reiniciarBolas();
         bomboPrincipal.sacarNumerosEnArray(resultado); // Genera los 6 números principales
-        complementario = bomboPrincipal.sacarUnNumero(); // Genera el complementario
+        complementario = bomboPrincipal.sacarUnNumero();// Genera el complementario
         reintegro = bomboReintegro.sacarUnNumero(); // Genera el reintegro
     }
 
