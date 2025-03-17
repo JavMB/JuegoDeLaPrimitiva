@@ -1,9 +1,11 @@
 package com.primitiva.GestionSorteo;
 
 import com.primitiva.PrimitivaConstantes;
-
 import java.util.Arrays;
-//TODO javadocs necesarios
+
+/**
+ * Clase que representa un bombo con números aleatorios.
+ */
 public class Bombo {
     private final int[] pool;
     private int size;
@@ -11,60 +13,75 @@ public class Bombo {
     public Bombo(int min, int max) {
         this.pool = generarPool(min, max);
         this.size = pool.length;
-
     }
 
-
+    /**
+     * Reinicia el bombo, restaurando todos los números.
+     */
     public void reiniciarBolas() {
         size = pool.length;
     }
 
-    //TODO CORREGIR URGENTE , mover logica corregida de aqui a dentro de sacar un numero y usar el metodo sacar un numero que no saca repetidos dentro de este x veces.
-    public void sacarNumerosEnArray(int [] array){
-        for(int i = 0; i < array.length; i++){
-            int indice = PrimitivaConstantes.rnd.nextInt(0,size);
-
+    /**
+     * Extrae una serie de números aleatorios de la pool sin repetirlos.
+     * 
+     * @param array Array donde se almacenarán los números extraídos.
+     */
+    public void sacarNumerosEnArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            int indice = PrimitivaConstantes.rnd.nextInt(0, size);
             array[i] = pool[indice];
-            moveToLeft(indice);
-
+            extraerBola(indice); // Manteniendo la lógica correcta de extracción
         }
     }
 
-    //TODO CORREGIR URGENTE - en Sorteo al usar esto puedes poner un numero repetido.
-    public int sacarUnNumero(){
-        return pool[PrimitivaConstantes.rnd.nextInt(0,size)];
+    /**
+     * Extrae un número aleatorio de la pool sin repetirlo.
+     * 
+     * @return Número extraído.
+     */
+    public int sacarUnNumero() {
+        int indice = PrimitivaConstantes.rnd.nextInt(0, size);
+        int numeroExtraido = pool[indice];
+        extraerBola(indice);
+        return numeroExtraido;
     }
 
-
-
-    private int[] generarPool(int min, int max){
+    /**
+     * Genera un array con números consecutivos entre un mínimo y un máximo.
+     * 
+     * @param min Número mínimo.
+     * @param max Número máximo.
+     * @return Array de números consecutivos.
+     */
+    private int[] generarPool(int min, int max) {
         int[] array = new int[(max + 1) - min];
         int contador = 0;
 
-        for(int i = min; i <= max; i++){
+        for (int i = min; i <= max; i++) {
             array[contador] = i;
             contador++;
         }
 
         return array;
     }
-    //TODO quitar este metodo , no es necesario desplazar, podemos intercambiar el numero extraido con el ultimo disponible y reducir el size
-    private void moveToLeft(int indice) {
-        int aux = pool[indice];
 
-        for (int i = indice; i < pool.length - 1; i++) {
-            pool[i] = pool[i + 1];
+    /**
+     * Ajusta el array y el tamaño para evitar la repetición de números extraídos.
+     * 
+     * @param indice Índice del número a extraer.
+     */
+    private void extraerBola(int indice) {
+        if (indice != (size - 1)) {
+            int aux = pool[indice];
+            pool[indice] = pool[size - 1];
+            pool[size - 1] = aux;
         }
         size--;
-
-        pool[pool.length-1] = aux;
     }
-
 
     @Override
     public String toString() {
-        return "contenido Bombo [numeros="
-                + Arrays.toString(pool)
-                + "]";
+        return "contenido Bombo [numeros=" + Arrays.toString(pool) + "]";
     }
 }
