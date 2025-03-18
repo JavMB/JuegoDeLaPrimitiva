@@ -147,11 +147,7 @@ public class JuegoPrimitiva {
                 case TERCERO -> premios[3]++;
                 case CUARTO -> premios[4]++;
                 case QUINTO -> premios[5]++;
-                default -> {
-                    if (boleto.getReintegro() == sorteo.getReintegro()) {
-                        premios[6]++;
-                    }
-                }
+                default -> premios[6]++;
             }
         }
         return premios;
