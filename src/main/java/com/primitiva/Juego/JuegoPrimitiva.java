@@ -77,24 +77,19 @@ public class JuegoPrimitiva {
     /**
      * Determinar el premio que se ha ganado
      *
-     * @param aciertos       El número de aciertos para devolver el premio adecuado
-     * @param reintegro      El reintegro para saber si se consigue el premio especial
+     * @param aciertos El número de aciertos para devolver el premio adecuado
+     * @param reintegro El reintegro para saber si se consigue el premio especial
      * @param complementario El número complementario para saber si se consigue el segundo premio
      * @return Devuelve el premio ganado
      */
     private Premios determinarPremio(int aciertos, boolean reintegro, boolean complementario) {
-        switch (aciertos) {
-            case 3:
-                return Premios.QUINTO;
-            case 4:
-                return Premios.CUARTO;
-            case 5:
-                return complementario ? Premios.SEGUNDO : Premios.TERCERO;
-            case 6:
-                return reintegro ? Premios.ESPECIAL : Premios.PRIMERO;
-            default:
-                return Premios.NINGUNO;
-        }
+        return switch (aciertos) {
+            case 3 -> Premios.QUINTO;
+            case 4 -> Premios.CUARTO;
+            case 5 -> complementario ? Premios.SEGUNDO : Premios.TERCERO;
+            case 6 -> reintegro ? Premios.ESPECIAL : Premios.PRIMERO;
+            default -> Premios.NINGUNO;
+        };
     }
 
 
@@ -109,7 +104,6 @@ public class JuegoPrimitiva {
         int aciertos;
         boolean reintegro;
         do {
-            aciertos = 0;
             iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
@@ -128,7 +122,6 @@ public class JuegoPrimitiva {
         int iteraciones = 0;
         int aciertos;
         do {
-            aciertos = 0;
             iteraciones++;
             sorteo.generar();
             aciertos = calcularAciertos(boleto);
@@ -185,7 +178,7 @@ public class JuegoPrimitiva {
 
         return iteraciones + " Sorteos (Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
     }
-
+    
     public ResultadoSorteo obtenerUltimoSorteo() {
         return sorteo.getResultadoGanador();
     }
