@@ -77,8 +77,8 @@ public class JuegoPrimitiva {
     /**
      * Determinar el premio que se ha ganado
      *
-     * @param aciertos El número de aciertos para devolver el premio adecuado
-     * @param reintegro El reintegro para saber si se consigue el premio especial
+     * @param aciertos       El número de aciertos para devolver el premio adecuado
+     * @param reintegro      El reintegro para saber si se consigue el premio especial
      * @param complementario El número complementario para saber si se consigue el segundo premio
      * @return Devuelve el premio ganado
      */
@@ -174,7 +174,7 @@ public class JuegoPrimitiva {
 
         return iteraciones + " Sorteos (Tiempo: " + String.format("%.2f", tiempoTotal) + " segundos)";
     }
-    
+
     public ResultadoSorteo obtenerUltimoSorteo() {
         return sorteo.getResultadoGanador();
     }

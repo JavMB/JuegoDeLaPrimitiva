@@ -3,8 +3,6 @@ package com.primitiva;
 import com.primitiva.Juego.Boleto;
 import com.primitiva.Juego.JuegoPrimitiva;
 
-import java.util.Arrays;
-
 public class Main {
     // Array de los numeros
     public static int[] num = new int[PrimitivaConstantes.TOTAL_NUMEROS];
@@ -239,30 +237,33 @@ public class Main {
      */
     private static void menuOptions(int numIntroducido) {
         switch (numIntroducido) {
-            // que muestre premio
             case 1 ->
-                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + juegos.juegoUnico(boleto) + ", " + "la combinacion ganadora era: " + juegos.obtenerUltimoSorteo() + " y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "\n" + juegos.juegoUnico(boleto) + ", " + "la combinacion ganadora era: " + juegos.obtenerUltimoSorteo() + " y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
             case 2 ->
-                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "Se tiro un total de: " + juegos.juegoHastaPremio(boleto) + " veces hasta que te ha tocado un premio CON REINTEGRO y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "\n" + "Se tiro un total de: " + juegos.juegoHastaPremio(boleto) + " veces hasta que te ha tocado un premio CON REINTEGRO y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
             case 3 ->
-                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "Se tiro un total de: " + juegos.juegoHastaPremioSinReintegro(boleto) + " veces hasta que te ha tocado un premio SIN REINTEGRO y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "\n" + "Se tiro un total de: " + juegos.juegoHastaPremioSinReintegro(boleto) + " veces hasta que te ha tocado un premio SIN REINTEGRO y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
             case 4 ->
-                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + mostrarArray(text) + " y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "\n" + mostrarArray(text) + " y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
             case 5 ->
-                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "Se tiro un total de: " + juegos.juegoHastaEspecialResultado(boleto) + juegos.obtenerUltimoSorteo() + " veces y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
+                    System.out.println(countdown() + decoradorDeTexto(PrimitivaConstantes.RESULTADOS + "\n" + "Se tiro un total de: " + juegos.juegoHastaEspecialResultado(boleto) + juegos.obtenerUltimoSorteo() + " veces y tu boleto es: " + boleto, false, dondeVaElColor(PrimitivaConstantes.COLORES.values()[numIntroducido], false), dondeVaElColor(PrimitivaConstantes.COLORES.NULL, true)));
             default -> System.err.println(PrimitivaConstantes.MSG_ERROR);
         }
         await();
     }
 
+
+    private static final String[] text = new String[]{"E", "1ª", "2ª", "3ª", "4ª", "5ª", "Nada"};
+
     /**
      * Para decorar el array y hacerlo bonito
+     *
+     * @param text para indicar los premios o alguna manera de indicar el tipo
      * @return el array decorado
      */
-    private static final String[] text = new String[]{"E","1ª","2ª","3ª","4ª","5ª","R"};
     private static String mostrarArray(String[] text) {
         StringBuilder sb = new StringBuilder();
-        int margin = 1;
+        final int margin = 0;
         sb.append("\n".repeat(margin));
         for (int i = 0; i < text.length; i++) {
             sb.append(text[i]).append(" total: ").append(juegos.juegoDeMuchosSorteos(boleto)[i]).append("\n");
