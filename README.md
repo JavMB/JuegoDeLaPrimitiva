@@ -5,12 +5,7 @@
 <p align="center">
 	<em>Test Your Luck with Primitiva Magic!</em>
 </p>
-<p align="center">
-	<img src="https://img.shields.io/github/license/JavMB/JuegoDeLaPrimitiva?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
-	<img src="https://img.shields.io/github/last-commit/JavMB/JuegoDeLaPrimitiva?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
-	<img src="https://img.shields.io/github/languages/top/JavMB/JuegoDeLaPrimitiva?style=default&color=0080ff" alt="repo-top-language">
-	<img src="https://img.shields.io/github/languages/count/JavMB/JuegoDeLaPrimitiva?style=default&color=0080ff" alt="repo-language-count">
-</p>
+
 <p align="center"><!-- default option, no dependency badges. -->
 </p>
 <p align="center">
@@ -21,7 +16,6 @@
 ##  Table of Contents
 
 - [ Overview](#-overview)
-- [ Features](#-features)
 - [ Project Structure](#-project-structure)
   - [ Project Index](#-project-index)
 - [ Getting Started](#-getting-started)
@@ -37,19 +31,7 @@ JuegoDeLaPrimitiva is a user-friendly open-source project that simplifies playin
 
 ---
 
-##  Features
 
-|      | Feature         | Summary       |
-| :--- | :---:           | :---          |
-| ⚙️  | **Architecture**  | <ul><li>Java-based project structured with clear separation of concerns</li><li>Uses **Gradle** as the build tool for managing dependencies and building the project</li><li>Follows a modular design pattern with distinct packages for different components</li><li>Utilizes classes like `Bombo`, `Sorteo`, and `JuegoPrimitiva` for efficient lottery management</li></ul> |
-| 🔩 | **Code Quality**  | <ul><li>Implements **Checkstyle** plugin in `build.gradle` for Java code quality checks</li><li>Ensures consistent code formatting and adherence to coding standards</li><li>Includes detailed comments and documentation within the codebase for better understanding</li><li>Follows object-oriented principles for maintainable and readable code</li></ul> |
-| 📄 | **Documentation** | <ul><li>Comprehensive documentation in **Java** with detailed explanations of classes and methods</li><li>Includes usage commands and installation instructions for **Gradle** in the documentation</li><li>Provides insights into the project structure and dependencies in the documentation</li><li>Offers clear explanations of the lottery game logic and functionality</li></ul> |
-| 🔌 | **Integrations**  | <ul><li>Utilizes **GitHub Actions** for automating CI/CD workflows with the `gradle.yml` configuration</li><li>Ensures seamless integration with **Jupiter** and **JUnit** for testing purposes</li><li>Integrates external libraries for specific functionalities like random number generation and lottery management</li><li>Includes continuous integration setup for maintaining code quality and build success</li></ul> |
-| 🧩 | **Modularity**    | <ul><li>Divides functionality into separate packages like `GestionSorteo` and `Juego` for better organization</li><li>Encapsulates related classes within packages to promote reusability and maintainability</li><li>Follows a modular approach for easy extension and modification of features</li><li>Ensures low coupling and high cohesion between modules for scalability</li></ul> |
-| 🧪 | **Testing**       | <ul><li>Implements unit tests using **JUnit** for verifying the functionality of individual components</li><li>Includes test commands in the documentation for running test suites with **Gradle**</li><li>Ensures comprehensive test coverage to validate the lottery game logic and outcomes</li><li>Follows test-driven development practices for robust and reliable code</li></ul> |
-| ⚡️  | **Performance**   | <ul><li>Optimizes performance by efficiently managing random number generation in the `Bombo` class</li><li>Ensures quick and accurate lottery result generation with the `Sorteo` class</li><li>Utilizes Java's inherent performance capabilities for handling game operations smoothly</li><li>Focuses on minimizing computational overhead for enhanced user experience</li></ul> |
-
----
 
 ##  Project Structure
 
